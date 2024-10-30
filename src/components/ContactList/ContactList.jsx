@@ -10,9 +10,11 @@ const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const searchValue = useSelector(selectNameFilter);
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(searchValue.toLowerCase().trim())
-  );
+  const filteredContacts = Array.isArray(contacts)
+    ? contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchValue.toLowerCase().trim())
+      )
+    : [];
 
   const handleDeleteContact = (contactId) => {
     dispatch(deleteContact(contactId));

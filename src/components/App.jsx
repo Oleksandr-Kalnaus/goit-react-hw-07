@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchContacts } from "../redux/contactsOps";
 import { useEffect } from "react";
-import { getError, getIsLoading } from "../redux/selectors";
+import { selectError, selectIsLoading } from "../redux/selectors";
+import Loader from "./Loader/Loader";
 
 export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -21,7 +22,7 @@ export default function App() {
       <h1>Phonebook</h1>
       <ContactForm />
       <SearchBox />
-      {isLoading && !error && <b>Request in progress...</b>}
+      {isLoading && !error && <Loader />}
       <ContactList />
     </div>
   );
